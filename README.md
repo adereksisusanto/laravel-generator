@@ -5,6 +5,8 @@
 ![License](https://img.shields.io/github/license/adereksisusanto/laravel-generator)
 [![Tests](https://github.com/adereksisusanto/laravel-generator/workflows/Tests/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
 [![PHPStan](https://github.com/adereksisusanto/laravel-generator/workflows/PHPStan/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
+[![1.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v1.*&label=1.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/1.x)
+[![Downloads](https://img.shields.io/packagist/dt/adereksisusanto/laravel-generator)](https://packagist.org/packages/adereksisusanto/laravel-generator)
 
 Generate Laravel **models**, **migrations**, and **seeders** directly from your existing database tables.
 
