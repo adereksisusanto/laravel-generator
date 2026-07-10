@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.0.0 - 2026-07-10
+
+## What's Changed
+
+- chore: update workflows and dependencies for PHP 8.3 and Laravel 13 support
+- chore: update workflows and dependencies for PHP 8.2 and Laravel 13 support
+
 ## 3.0.0 - 2026-07-10
 
 ## What's Changed
