@@ -73,7 +73,7 @@ PHP 7.2.5+, Laravel 7–8, Orchestra Testbench 5–6.
 | `1.x` | 7–8 | 7.2 | — |
 | `2.x` | 9 | 8.0 | Drop PHP 7.x |
 | `3.x` | 10–12 | 8.1 | L10 needs 8.1, L11/12 still 8.1+ compatible |
-| `4.x` | 13+ | TBD | Only when PHP min rises again (e.g. 8.3+) |
+| `4.x` | 13+ | 8.2 | L13 requires PHP 8.2+ |
 
 ## Upgrading across branches
 

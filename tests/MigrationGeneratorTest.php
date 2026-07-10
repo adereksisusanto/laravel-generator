@@ -3,10 +3,11 @@
 namespace Adereksisusanto\Laravel\Generator\Tests;
 
 use Adereksisusanto\Laravel\Generator\Generators\MigrationGenerator;
+use PHPUnit\Framework\Attributes\Test;
 
 class MigrationGeneratorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_resolves_mysql_column_types_to_schema_methods()
     {
         $generator = $this->makeGenerator();
@@ -31,7 +32,7 @@ class MigrationGeneratorTest extends TestCase
         }
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_column_line_for_integer()
     {
         $generator = $this->makeGenerator();
@@ -56,7 +57,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString('views', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_column_line_with_nullable()
     {
         $generator = $this->makeGenerator();
@@ -80,7 +81,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString('->nullable()', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_skips_timestamps_and_soft_deletes_columns()
     {
         $generator = $this->makeGenerator();
@@ -97,7 +98,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertNull($result);
     }
 
-    /** @test */
+    #[Test]
     public function it_resolves_auto_increment_primary_as_increments()
     {
         $generator = $this->makeGenerator();
@@ -114,7 +115,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString('increments', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_column_line_with_unsigned()
     {
         $generator = $this->makeGenerator();
@@ -131,7 +132,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString('->unsigned()', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_column_line_with_use_current_for_timestamp_default()
     {
         $generator = $this->makeGenerator();
@@ -148,7 +149,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertNull($result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_column_line_with_default_value()
     {
         $generator = $this->makeGenerator();
@@ -165,7 +166,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString("->default('active')", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_column_line_with_numeric_default()
     {
         $generator = $this->makeGenerator();
@@ -182,7 +183,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString('->default(0)', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_column_line_with_comment()
     {
         $generator = $this->makeGenerator();
@@ -199,7 +200,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString("->comment('User notes')", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_enum_column()
     {
         $generator = $this->makeGenerator();
@@ -216,7 +217,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString("->enum('role', [])", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_resolves_unknown_type_to_string()
     {
         $generator = $this->makeGenerator();
@@ -227,7 +228,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertEquals('string', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_supports_length_for_string_types()
     {
         $generator = $this->makeGenerator();
@@ -238,7 +239,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertFalse($this->invokeMethod($generator, 'supportsLength', ['decimal']));
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_schema_with_timestamps_and_soft_deletes()
     {
         $generator = $this->makeGenerator();
@@ -284,7 +285,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString('$table->softDeletes()', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_big_increments_for_bigint_primary()
     {
         $generator = $this->makeGenerator();
@@ -301,7 +302,7 @@ class MigrationGeneratorTest extends TestCase
         $this->assertStringContainsString('bigIncrements', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_generate_single_method()
     {
         $generator = $this->makeGenerator();

@@ -4,10 +4,11 @@ namespace Adereksisusanto\Laravel\Generator\Tests;
 
 use Adereksisusanto\Laravel\Generator\Commands\GenerateMigrationCommand;
 use Adereksisusanto\Laravel\Generator\Generators\MigrationGenerator;
+use PHPUnit\Framework\Attributes\Test;
 
 class GenerateMigrationCommandTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_has_single_option_in_signature()
     {
         $generator = $this->createMock(MigrationGenerator::class);
@@ -22,7 +23,7 @@ class GenerateMigrationCommandTest extends TestCase
         $this->assertNotFalse(strpos($signature, '{--single'), 'Signature should contain --single option');
     }
 
-    /** @test */
+    #[Test]
     public function it_has_handle_single_method()
     {
         $generator = $this->createMock(MigrationGenerator::class);

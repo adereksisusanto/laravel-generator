@@ -6,10 +6,11 @@ use Adereksisusanto\Laravel\Generator\Commands\GenerateModelCommand;
 use Adereksisusanto\Laravel\Generator\Generators\MigrationGenerator;
 use Adereksisusanto\Laravel\Generator\Generators\ModelGenerator;
 use Adereksisusanto\Laravel\Generator\Generators\SeederGenerator;
+use PHPUnit\Framework\Attributes\Test;
 
 class GenerateModelCommandTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_has_migration_and_seeder_options_in_signature()
     {
         $generator = $this->createMock(ModelGenerator::class);
@@ -27,7 +28,7 @@ class GenerateModelCommandTest extends TestCase
         $this->assertNotFalse(strpos($signature, '{--s|seeder'), 'Signature should contain --seeder option');
     }
 
-    /** @test */
+    #[Test]
     public function it_accepts_three_generators_in_constructor()
     {
         $generator = $this->createMock(ModelGenerator::class);
@@ -42,7 +43,7 @@ class GenerateModelCommandTest extends TestCase
         $this->assertNotNull($reflection->getProperty('seederGenerator'));
     }
 
-    /** @test */
+    #[Test]
     public function it_stores_generators_from_constructor()
     {
         $generator = $this->createMock(ModelGenerator::class);

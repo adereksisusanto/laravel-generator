@@ -3,10 +3,11 @@
 namespace Adereksisusanto\Laravel\Generator\Tests;
 
 use Adereksisusanto\Laravel\Generator\Generators\SeederGenerator;
+use PHPUnit\Framework\Attributes\Test;
 
 class SeederGeneratorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_formats_null_value()
     {
         $generator = $this->makeGenerator();
@@ -16,7 +17,7 @@ class SeederGeneratorTest extends TestCase
         $this->assertEquals('null', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_formats_numeric_value()
     {
         $generator = $this->makeGenerator();
@@ -25,7 +26,7 @@ class SeederGeneratorTest extends TestCase
         $this->assertEquals('3.14', $this->invokeMethod($generator, 'formatValue', [3.14]));
     }
 
-    /** @test */
+    #[Test]
     public function it_formats_string_value_with_single_quotes()
     {
         $generator = $this->makeGenerator();
@@ -35,7 +36,7 @@ class SeederGeneratorTest extends TestCase
         $this->assertEquals("'hello'", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_escapes_single_quotes_in_strings()
     {
         $generator = $this->makeGenerator();
@@ -45,7 +46,7 @@ class SeederGeneratorTest extends TestCase
         $this->assertEquals("'it\\'s'", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_formats_boolean_values()
     {
         $generator = $this->makeGenerator();
@@ -54,7 +55,7 @@ class SeederGeneratorTest extends TestCase
         $this->assertEquals('false', $this->invokeMethod($generator, 'formatValue', [false]));
     }
 
-    /** @test */
+    #[Test]
     public function it_escapes_newlines_in_strings()
     {
         $generator = $this->makeGenerator();
@@ -64,7 +65,7 @@ class SeederGeneratorTest extends TestCase
         $this->assertEquals("'line1\\nline2'", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_empty_array_for_no_rows()
     {
         $generator = $this->makeGenerator();
@@ -74,7 +75,7 @@ class SeederGeneratorTest extends TestCase
         $this->assertEquals('[]', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_data_array_from_rows()
     {
         $generator = $this->makeGenerator();

@@ -2,7 +2,7 @@ name: Fix PHP code style issues
 
 on:
   push:
-    branches: [3.x]
+    branches: [4.x]
     paths:
       - '**.php'
 
@@ -27,7 +27,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           coverage: none
           tools: composer:v2
 

@@ -1,16 +1,17 @@
 # Laravel Generator
 
-![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php)
-![Laravel](https://img.shields.io/badge/Laravel-10%7C11%7C12-FF2D20?logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)
+![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel)
 ![License](https://img.shields.io/github/license/adereksisusanto/laravel-generator)
 [![Tests](https://github.com/adereksisusanto/laravel-generator/workflows/Tests/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
 [![PHPStan](https://github.com/adereksisusanto/laravel-generator/workflows/PHPStan/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
 [![3.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v3.*&label=3.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/3.x)
+[![4.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v4.*&label=4.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/4.x)
 [![Downloads](https://img.shields.io/packagist/dt/adereksisusanto/laravel-generator)](https://packagist.org/packages/adereksisusanto/laravel-generator)
 
 Generate Laravel **models**, **migrations**, and **seeders** directly from your existing database tables.
 
-Supports MySQL, PostgreSQL, SQLite, and SQL Server. Compatible with PHP 8.1+ and Laravel 10–12.
+Supports MySQL, PostgreSQL, SQLite, and SQL Server. Compatible with PHP 8.2+ and Laravel 13.
 
 ## Installation
 

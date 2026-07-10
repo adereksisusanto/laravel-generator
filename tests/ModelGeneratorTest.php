@@ -3,10 +3,11 @@
 namespace Adereksisusanto\Laravel\Generator\Tests;
 
 use Adereksisusanto\Laravel\Generator\Generators\ModelGenerator;
+use PHPUnit\Framework\Attributes\Test;
 
 class ModelGeneratorTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_generates_studly_model_name_from_snake_table()
     {
         $generator = $this->makeGenerator();
@@ -17,7 +18,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertEquals('Tag', $this->invokeMethod($generator, 'getModelName', ['tags']));
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_fillable_from_columns_excluding_primary_and_timestamps()
     {
         $generator = $this->makeGenerator();
@@ -38,7 +39,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertStringNotContainsString("'created_at'", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_casts_for_boolean_integer_float_and_datetime()
     {
         $generator = $this->makeGenerator();
@@ -62,7 +63,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertStringNotContainsString("'id'", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_detects_soft_delete_trait_when_deleted_at_column_exists()
     {
         $generator = $this->makeGenerator();
@@ -76,7 +77,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertContains('Illuminate\\Database\\Eloquent\\SoftDeletes', $traits);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_default_traits_when_no_deleted_at_column()
     {
         $generator = $this->makeGenerator();
@@ -91,7 +92,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertCount(1, $traits);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_empty_fillable_for_primary_key_only()
     {
         $generator = $this->makeGenerator();
@@ -105,7 +106,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertEquals('[]', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_hides_password_and_remember_token()
     {
         $generator = $this->makeGenerator();
@@ -123,7 +124,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertStringNotContainsString("'email'", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_resolves_cast_types_for_date_timestamp_and_binary()
     {
         $generator = $this->makeGenerator();
@@ -142,7 +143,7 @@ class ModelGeneratorTest extends TestCase
         ]));
     }
 
-    /** @test */
+    #[Test]
     public function it_skips_datetime_cast_for_created_at_and_updated_at()
     {
         $generator = $this->makeGenerator();
@@ -154,7 +155,7 @@ class ModelGeneratorTest extends TestCase
         $this->assertNull($result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_use_statements_from_traits_and_relations()
     {
         $generator = $this->makeGenerator();
@@ -178,7 +179,7 @@ PHP;
         $this->assertStringContainsString('use Illuminate\\Database\\Eloquent\\Relations\\BelongsTo;', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_empty_use_statements_when_no_traits_or_relations()
     {
         $generator = $this->makeGenerator();
@@ -188,7 +189,7 @@ PHP;
         $this->assertEquals('', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_builds_trait_uses()
     {
         $generator = $this->makeGenerator();
@@ -199,7 +200,7 @@ PHP;
         $this->assertStringContainsString('use SoftDeletes;', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_empty_trait_uses_when_no_traits()
     {
         $generator = $this->makeGenerator();
@@ -209,7 +210,7 @@ PHP;
         $this->assertEquals('', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_removes_consecutive_empty_lines()
     {
         $generator = $this->makeGenerator();
@@ -220,7 +221,7 @@ PHP;
         $this->assertEquals("line1\n\nline2\n\nline3", $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_alter_content_without_consecutive_empty_lines()
     {
         $generator = $this->makeGenerator();

@@ -6,10 +6,11 @@ use Adereksisusanto\Laravel\Generator\Database\MySqlDriver;
 use Adereksisusanto\Laravel\Generator\Database\PostgresDriver;
 use Adereksisusanto\Laravel\Generator\Database\SqliteDriver;
 use Adereksisusanto\Laravel\Generator\Database\SqlSrvDriver;
+use PHPUnit\Framework\Attributes\Test;
 
 class DatabaseSchemaTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_parses_mysql_varchar_type()
     {
         $driver = $this->makeMySqlDriver();
