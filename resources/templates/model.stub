@@ -1,0 +1,20 @@
+<?php
+
+namespace {{namespace}};
+
+use Illuminate\Database\Eloquent\Model;{{uses}}
+
+class {{modelName}} extends Model
+{
+    {{traitUses}}
+    protected $table = '{{table}}';
+
+    protected $fillable = {{fillable}};
+
+    protected $casts = {{casts}};
+
+    protected $dates = {{dates}};
+
+    protected $hidden = {{hidden}};
+{{relations}}
+}

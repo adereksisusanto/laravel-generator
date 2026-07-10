@@ -1,0 +1,69 @@
+{
+    "name": "adereksisusanto/laravel-generator",
+    "description": "Generate Laravel models, migrations, and seeders from existing database tables",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "generator",
+        "laravel",
+        "model",
+        "migration",
+        "seeder",
+        "scaffold",
+        "code-generator",
+        "eloquent",
+        "database",
+        "php"
+    ],
+    "authors": [
+        {
+            "name": "Adereksisusanto",
+            "email": "adereksisusanto@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "illuminate/support": "^7.0|^8.0",
+        "illuminate/console": "^7.0|^8.0",
+        "illuminate/filesystem": "^7.0|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "phpstan/phpstan": "^1.4",
+        "friendsofphp/php-cs-fixer": "^2.19|^3.0",
+        "orchestra/testbench": "^5.0|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Adereksisusanto\\Laravel\\Generator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Adereksisusanto\\Laravel\\Generator\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "format": "php-cs-fixer fix",
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "lint-fix": "php-cs-fixer fix",
+        "analyse": "phpstan analyse",
+        "analyse:baseline": "phpstan analyse --generate-baseline",
+        "check": [
+            "@lint",
+            "@analyse",
+            "@test"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Adereksisusanto\\Laravel\\Generator\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
