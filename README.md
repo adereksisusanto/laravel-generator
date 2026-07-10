@@ -1,17 +1,19 @@
 # Laravel Generator
 
-![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php)
+![PHP](https://img.shields.io/badge/PHP-8.3%2B-777BB4?logo=php)
 ![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel)
 ![License](https://img.shields.io/github/license/adereksisusanto/laravel-generator)
 [![Tests](https://github.com/adereksisusanto/laravel-generator/workflows/Tests/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
 [![PHPStan](https://github.com/adereksisusanto/laravel-generator/workflows/PHPStan/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
+[![1.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v1.*&label=1.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/1.x)
+[![2.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v2.*&label=2.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/2.x)
 [![3.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v3.*&label=3.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/3.x)
 [![4.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v4.*&label=4.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/4.x)
 [![Downloads](https://img.shields.io/packagist/dt/adereksisusanto/laravel-generator)](https://packagist.org/packages/adereksisusanto/laravel-generator)
 
 Generate Laravel **models**, **migrations**, and **seeders** directly from your existing database tables.
 
-Supports MySQL, PostgreSQL, SQLite, and SQL Server. Compatible with PHP 8.2+ and Laravel 13.
+Supports MySQL, PostgreSQL, SQLite, and SQL Server. Compatible with PHP 8.3+ and Laravel 13.
 
 ## Installation
 
