@@ -2,6 +2,7 @@
 
 namespace Adereksisusanto\Laravel\Generator\Database;
 
+use Illuminate\Database\Connection;
 use Illuminate\Support\Facades\DB;
 
 class Schema
@@ -42,8 +43,9 @@ class Schema
 
     protected function getDriverName($connection)
     {
-        /** @var \Illuminate\Database\Connection $conn */
+        /** @var Connection $conn */
         $conn = DB::connection($connection);
+
         return $conn->getDriverName();
     }
 }

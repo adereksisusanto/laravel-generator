@@ -2,9 +2,10 @@
 
 namespace Adereksisusanto\Laravel\Generator\Database;
 
+use Adereksisusanto\Laravel\Generator\Contracts\DriverContract;
 use Illuminate\Support\Facades\DB;
 
-class PostgresDriver implements \Adereksisusanto\Laravel\Generator\Contracts\DriverContract
+class PostgresDriver implements DriverContract
 {
     protected $connection;
 

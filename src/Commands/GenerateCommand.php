@@ -55,9 +55,9 @@ class GenerateCommand extends Command
             return 1;
         }
 
-        $schemaManager = new Schema();
+        $schemaManager = new Schema;
 
-        if (!$modelOnly && !$seederOnly) {
+        if (! $modelOnly && ! $seederOnly) {
             $this->line('');
             $this->info('Generating migrations...');
 
@@ -76,7 +76,7 @@ class GenerateCommand extends Command
             }
         }
 
-        if (!$migrationOnly && !$seederOnly) {
+        if (! $migrationOnly && ! $seederOnly) {
             $this->line('');
             $this->info('Generating models...');
 
@@ -102,7 +102,7 @@ class GenerateCommand extends Command
             }
         }
 
-        if (!$modelOnly && !$migrationOnly) {
+        if (! $modelOnly && ! $migrationOnly) {
             $this->line('');
             $this->info('Generating seeders...');
 

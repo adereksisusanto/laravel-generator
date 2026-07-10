@@ -21,7 +21,7 @@ class ServiceProvider extends BaseServiceProvider
             ]);
 
             $this->publishes([
-                __DIR__ . '/../config/generator.php' => config_path('generator.php'),
+                __DIR__.'/../config/generator.php' => config_path('generator.php'),
             ], 'config');
         }
     }
@@ -29,20 +29,14 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/generator.php',
+            __DIR__.'/../config/generator.php',
             'generator'
         );
 
         $config = $this->app->make('config');
 
-        if (version_compare($this->app->version(), '8', '>=')) {
-            $config->set('generator.paths.model', $config->get('generator.paths.model', app_path('Models')));
-            $config->set('generator.paths.seeder', $config->get('generator.paths.seeder', database_path('seeders')));
-            $config->set('generator.namespace', $config->get('generator.namespace', 'App\\Models'));
-        } else {
-            $config->set('generator.paths.model', $config->get('generator.paths.model', app_path()));
-            $config->set('generator.paths.seeder', $config->get('generator.paths.seeder', database_path('seeds')));
-            $config->set('generator.namespace', $config->get('generator.namespace', 'App'));
-        }
+        $config->set('generator.paths.model', $config->get('generator.paths.model', app_path('Models')));
+        $config->set('generator.paths.seeder', $config->get('generator.paths.seeder', database_path('seeders')));
+        $config->set('generator.namespace', $config->get('generator.namespace', 'App\\Models'));
     }
 }

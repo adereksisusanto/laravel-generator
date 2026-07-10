@@ -94,7 +94,7 @@ class SeederGeneratorTest extends TestCase
 
     protected function makeGenerator()
     {
-        return new SeederGenerator();
+        return new SeederGenerator;
     }
 
     protected function invokeMethod($object, $method, array $parameters = [])

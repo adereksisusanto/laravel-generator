@@ -12,7 +12,7 @@ class SeederGenerator
 
     public function __construct()
     {
-        $this->template = file_get_contents(__DIR__ . '/../../resources/templates/seeder.stub');
+        $this->template = file_get_contents(__DIR__.'/../../resources/templates/seeder.stub');
     }
 
     public function generate($table, array $options = [])
@@ -20,15 +20,15 @@ class SeederGenerator
         $force = isset($options['force']) ? $options['force'] : false;
         $connection = isset($options['connection']) ? $options['connection'] : config('generator.connection');
 
-        $seederName = Str::studly(Str::plural($table)) . 'TableSeeder';
+        $seederName = Str::studly(Str::plural($table)).'TableSeeder';
         $modelName = Str::studly(Str::singular($table));
 
-        $defaultPath = version_compare(app()->version(), '8', '>=') ? database_path('seeders') : database_path('seeds');
+        $defaultPath = database_path('seeders');
         $outputPath = isset($options['path']) ? $options['path'] : config('generator.paths.seeder', $defaultPath);
 
-        $filePath = rtrim($outputPath, '/\\') . '/' . $seederName . '.php';
+        $filePath = rtrim($outputPath, '/\\').'/'.$seederName.'.php';
 
-        if (File::exists($filePath) && !$force) {
+        if (File::exists($filePath) && ! $force) {
             return false;
         }
 
@@ -55,7 +55,7 @@ class SeederGenerator
             $this->template
         );
 
-        if (!File::isDirectory(dirname($filePath))) {
+        if (! File::isDirectory(dirname($filePath))) {
             File::makeDirectory(dirname($filePath), 0755, true);
         }
 
@@ -93,7 +93,7 @@ class SeederGenerator
             $result .= "            [\n";
 
             foreach ($row as $column => $value) {
-                $result .= "                '{$column}' => " . $this->formatValue($value) . ",\n";
+                $result .= "                '{$column}' => ".$this->formatValue($value).",\n";
             }
 
             $result .= "            ],\n";

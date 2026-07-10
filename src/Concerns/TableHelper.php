@@ -2,6 +2,8 @@
 
 namespace Adereksisusanto\Laravel\Generator\Concerns;
 
+use Adereksisusanto\Laravel\Generator\Database\Schema;
+
 trait TableHelper
 {
     protected function getTablesList()
@@ -20,11 +22,11 @@ trait TableHelper
         $includes = config('generator.tables.includes', []);
         $excludes = config('generator.tables.excludes', []);
 
-        if (!empty($specificTables)) {
+        if (! empty($specificTables)) {
             return array_intersect($allTables, $specificTables);
         }
 
-        if (!empty($includes)) {
+        if (! empty($includes)) {
             return array_intersect($allTables, $includes);
         }
 
@@ -33,7 +35,7 @@ trait TableHelper
 
     protected function scanTables($connection)
     {
-        $schemaManager = new \Adereksisusanto\Laravel\Generator\Database\Schema();
+        $schemaManager = new Schema;
         $allTables = $schemaManager->getTables($connection);
 
         if (empty($allTables)) {
@@ -50,7 +52,7 @@ trait TableHelper
             return null;
         }
 
-        $this->info('Found ' . count($selectedTables) . ' tables to process:');
+        $this->info('Found '.count($selectedTables).' tables to process:');
         foreach ($selectedTables as $table) {
             $this->line("  - {$table}");
         }

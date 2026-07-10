@@ -77,7 +77,7 @@ class ModelGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_empty_traits_when_no_deleted_at_column()
+    public function it_returns_default_traits_when_no_deleted_at_column()
     {
         $generator = $this->makeGenerator();
 
@@ -87,7 +87,8 @@ class ModelGeneratorTest extends TestCase
 
         $traits = $this->invokeMethod($generator, 'getTraits', [$columns, []]);
 
-        $this->assertEmpty($traits);
+        $this->assertContains('Illuminate\\Database\\Eloquent\\Factories\\HasFactory', $traits);
+        $this->assertCount(1, $traits);
     }
 
     /** @test */
@@ -120,45 +121,6 @@ class ModelGeneratorTest extends TestCase
         $this->assertStringContainsString("'password'", $result);
         $this->assertStringContainsString("'remember_token'", $result);
         $this->assertStringNotContainsString("'email'", $result);
-    }
-
-    /** @test */
-    public function it_builds_dates_from_datetime_columns_excluding_timestamps_and_deleted_at()
-    {
-        $generator = $this->makeGenerator();
-
-        $columns = [
-            ['name' => 'created_at', 'type' => 'datetime', 'primary' => false, 'auto_increment' => false],
-            ['name' => 'updated_at', 'type' => 'datetime', 'primary' => false, 'auto_increment' => false],
-            ['name' => 'deleted_at', 'type' => 'timestamp', 'primary' => false, 'auto_increment' => false],
-            ['name' => 'published_at', 'type' => 'datetime', 'primary' => false, 'auto_increment' => false],
-            ['name' => 'birth_date', 'type' => 'date', 'primary' => false, 'auto_increment' => false],
-            ['name' => 'name', 'type' => 'varchar', 'primary' => false, 'auto_increment' => false],
-        ];
-
-        $result = $this->invokeMethod($generator, 'getDates', [$columns]);
-
-        $this->assertStringContainsString("'published_at'", $result);
-        $this->assertStringContainsString("'birth_date'", $result);
-        $this->assertStringNotContainsString("'created_at'", $result);
-        $this->assertStringNotContainsString("'updated_at'", $result);
-        $this->assertStringNotContainsString("'deleted_at'", $result);
-        $this->assertStringNotContainsString("'name'", $result);
-    }
-
-    /** @test */
-    public function it_returns_empty_dates_when_no_date_columns()
-    {
-        $generator = $this->makeGenerator();
-
-        $columns = [
-            ['name' => 'title', 'type' => 'varchar', 'primary' => false, 'auto_increment' => false],
-            ['name' => 'body', 'type' => 'text', 'primary' => false, 'auto_increment' => false],
-        ];
-
-        $result = $this->invokeMethod($generator, 'getDates', [$columns]);
-
-        $this->assertEquals('[]', $result);
     }
 
     /** @test */
@@ -271,7 +233,7 @@ PHP;
 
     protected function makeGenerator()
     {
-        return new ModelGenerator();
+        return new ModelGenerator;
     }
 
     protected function invokeMethod($object, $method, array $parameters = [])

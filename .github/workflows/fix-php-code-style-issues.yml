@@ -2,7 +2,7 @@ name: Fix PHP code style issues
 
 on:
   push:
-    branches: [1.x]
+    branches: [2.x]
     paths:
       - '**.php'
 
@@ -29,10 +29,9 @@ jobs:
         with:
           php-version: 8.1
           coverage: none
-          tools: php-cs-fixer
 
       - name: Fix PHP code style issues
-        run: php-cs-fixer fix
+        run: pint
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v7

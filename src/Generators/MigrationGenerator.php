@@ -13,21 +13,21 @@ class MigrationGenerator
 
     public function __construct()
     {
-        $this->template = file_get_contents(__DIR__ . '/../../resources/templates/migration.stub');
-        $this->singleTemplate = file_get_contents(__DIR__ . '/../../resources/templates/migration-single.stub');
+        $this->template = file_get_contents(__DIR__.'/../../resources/templates/migration.stub');
+        $this->singleTemplate = file_get_contents(__DIR__.'/../../resources/templates/migration-single.stub');
     }
 
     public function generate($table, array $columns, array $options = [])
     {
         $force = isset($options['force']) ? $options['force'] : false;
-        $migrationName = 'create_' . $table . '_table';
-        $className = 'Create' . Str::studly($table) . 'Table';
+        $migrationName = 'create_'.$table.'_table';
+        $className = 'Create'.Str::studly($table).'Table';
 
         $outputPath = config('generator.paths.migration', database_path('migrations'));
 
-        $existing = glob(rtrim($outputPath, '/\\') . '/*_' . $migrationName . '.php');
+        $existing = glob(rtrim($outputPath, '/\\').'/*_'.$migrationName.'.php');
 
-        if (!empty($existing) && !$force) {
+        if (! empty($existing) && ! $force) {
             return false;
         }
 
@@ -37,8 +37,8 @@ class MigrationGenerator
             $timestamp = $customPrefix;
         }
 
-        $fileName = $timestamp . '_' . $migrationName . '.php';
-        $filePath = rtrim($outputPath, '/\\') . '/' . $fileName;
+        $fileName = $timestamp.'_'.$migrationName.'.php';
+        $filePath = rtrim($outputPath, '/\\').'/'.$fileName;
 
         $schemaLines = $this->buildSchema($columns, $table);
 
@@ -56,7 +56,7 @@ class MigrationGenerator
             $this->template
         );
 
-        if (!File::isDirectory(dirname($filePath))) {
+        if (! File::isDirectory(dirname($filePath))) {
             File::makeDirectory(dirname($filePath), 0755, true);
         }
 
@@ -73,9 +73,9 @@ class MigrationGenerator
 
         $outputPath = config('generator.paths.migration', database_path('migrations'));
 
-        $existing = glob(rtrim($outputPath, '/\\') . '/*_' . $migrationName . '.php');
+        $existing = glob(rtrim($outputPath, '/\\').'/*_'.$migrationName.'.php');
 
-        if (!empty($existing) && !$force) {
+        if (! empty($existing) && ! $force) {
             return false;
         }
 
@@ -85,8 +85,8 @@ class MigrationGenerator
             $timestamp = $customPrefix;
         }
 
-        $fileName = $timestamp . '_' . $migrationName . '.php';
-        $filePath = rtrim($outputPath, '/\\') . '/' . $fileName;
+        $fileName = $timestamp.'_'.$migrationName.'.php';
+        $filePath = rtrim($outputPath, '/\\').'/'.$fileName;
 
         $upLines = [];
         $downLines = [];
@@ -117,7 +117,7 @@ class MigrationGenerator
             $this->singleTemplate
         );
 
-        if (!File::isDirectory(dirname($filePath))) {
+        if (! File::isDirectory(dirname($filePath))) {
             File::makeDirectory(dirname($filePath), 0755, true);
         }
 
@@ -138,7 +138,7 @@ class MigrationGenerator
             }
         }
 
-        if (!empty($columns)) {
+        if (! empty($columns)) {
             $hasTimestamps = false;
             $hasSoftDeletes = false;
 
@@ -167,10 +167,10 @@ class MigrationGenerator
     {
         if ($column['auto_increment'] && $column['primary']) {
             if ($column['type'] === 'bigint') {
-                return '            $table->bigIncrements(\'' . $column['name'] . '\');';
+                return '            $table->bigIncrements(\''.$column['name'].'\');';
             }
 
-            return '            $table->increments(\'' . $column['name'] . '\');';
+            return '            $table->increments(\''.$column['name'].'\');';
         }
 
         $name = $column['name'];
@@ -187,20 +187,20 @@ class MigrationGenerator
         }
 
         if ($method === 'enum') {
-            return '            $table->enum(\'' . $name . '\', []);';
+            return '            $table->enum(\''.$name.'\', []);';
         }
 
         $args = "'{$name}'";
 
         if ($column['length'] && $this->supportsLength($method)) {
-            $args .= ', ' . $column['length'];
+            $args .= ', '.$column['length'];
         } elseif ($method === 'decimal') {
             $precision = isset($column['precision']) && $column['precision'] ? $column['precision'] : 8;
             $scale = isset($column['scale']) && $column['scale'] ? $column['scale'] : 2;
-            $args .= ', ' . $precision . ', ' . $scale;
+            $args .= ', '.$precision.', '.$scale;
         }
 
-        $line = '            $table->' . $method . '(' . $args . ')';
+        $line = '            $table->'.$method.'('.$args.')';
 
         if ($column['nullable'] && $name !== 'id') {
             $chain .= '->nullable()';
@@ -214,7 +214,7 @@ class MigrationGenerator
             $default = $column['default'];
 
             if (is_numeric($default)) {
-                $chain .= '->default(' . $default . ')';
+                $chain .= '->default('.$default.')';
             } elseif (in_array($default, ['CURRENT_TIMESTAMP', 'current_timestamp()'])) {
                 $chain .= '->useCurrent()';
             } else {
@@ -223,10 +223,10 @@ class MigrationGenerator
         }
 
         if ($column['comment']) {
-            $chain .= "->comment('" . addslashes($column['comment']) . "')";
+            $chain .= "->comment('".addslashes($column['comment'])."')";
         }
 
-        $line .= $chain . ';';
+        $line .= $chain.';';
 
         return $line;
     }
@@ -266,7 +266,7 @@ class MigrationGenerator
             return $map[$type];
         }
 
-        if ($column['auto_increment'] && !$column['primary']) {
+        if ($column['auto_increment'] && ! $column['primary']) {
             return 'unsignedBigInteger';
         }
 

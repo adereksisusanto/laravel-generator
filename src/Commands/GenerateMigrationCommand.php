@@ -39,7 +39,7 @@ class GenerateMigrationCommand extends Command
             return 1;
         }
 
-        $schemaManager = new Schema();
+        $schemaManager = new Schema;
 
         if ($this->option('single')) {
             return $this->handleSingle($selectedTables, $schemaManager, $connection, $force);

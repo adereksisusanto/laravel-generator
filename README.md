@@ -1,16 +1,16 @@
 # Laravel Generator
 
-![PHP](https://img.shields.io/badge/PHP-7.2.5%2B-777BB4?logo=php)
-![Laravel](https://img.shields.io/badge/Laravel-7%7C8-FF2D20?logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?logo=php)
+![Laravel](https://img.shields.io/badge/Laravel-9-FF2D20?logo=laravel)
 ![License](https://img.shields.io/github/license/adereksisusanto/laravel-generator)
 [![Tests](https://github.com/adereksisusanto/laravel-generator/workflows/Tests/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
 [![PHPStan](https://github.com/adereksisusanto/laravel-generator/workflows/PHPStan/badge.svg)](https://github.com/adereksisusanto/laravel-generator/actions)
-[![1.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v1.*&label=1.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/1.x)
+[![2.x](https://img.shields.io/github/v/tag/adereksisusanto/laravel-generator?filter=v2.*&label=2.x&color=blue)](https://github.com/adereksisusanto/laravel-generator/tree/2.x)
 [![Downloads](https://img.shields.io/packagist/dt/adereksisusanto/laravel-generator)](https://packagist.org/packages/adereksisusanto/laravel-generator)
 
 Generate Laravel **models**, **migrations**, and **seeders** directly from your existing database tables.
 
-Supports MySQL, PostgreSQL, SQLite, and SQL Server. Compatible with PHP 7.2.5+ and Laravel 7–8.
+Supports MySQL, PostgreSQL, SQLite, and SQL Server. Compatible with PHP 8.0+ and Laravel 9.
 
 ## Installation
 
@@ -73,7 +73,7 @@ php artisan generate:model --tables=users -ms
 
 ### Models
 
-Eloquent model with `$fillable`, `$casts`, `$dates`, `$hidden`, relationships (`belongsTo`/`hasMany`), and `SoftDeletes` trait when `deleted_at` column exists.
+Eloquent model with `$fillable`, `$casts`, `$hidden`, relationships (`belongsTo`/`hasMany`), `HasFactory` trait, and `SoftDeletes` trait when `deleted_at` column exists.
 
 ### Migrations
 

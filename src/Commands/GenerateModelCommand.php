@@ -51,7 +51,7 @@ class GenerateModelCommand extends Command
             return 1;
         }
 
-        $schemaManager = new Schema();
+        $schemaManager = new Schema;
         $this->line('');
         $this->info('Generating models...');
 

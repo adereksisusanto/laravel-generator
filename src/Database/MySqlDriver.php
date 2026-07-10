@@ -2,9 +2,11 @@
 
 namespace Adereksisusanto\Laravel\Generator\Database;
 
+use Adereksisusanto\Laravel\Generator\Contracts\DriverContract;
+use Illuminate\Database\Connection;
 use Illuminate\Support\Facades\DB;
 
-class MySqlDriver implements \Adereksisusanto\Laravel\Generator\Contracts\DriverContract
+class MySqlDriver implements DriverContract
 {
     protected $connection;
 
@@ -91,8 +93,9 @@ class MySqlDriver implements \Adereksisusanto\Laravel\Generator\Contracts\Driver
 
     protected function getDatabaseName()
     {
-        /** @var \Illuminate\Database\Connection $conn */
+        /** @var Connection $conn */
         $conn = DB::connection($this->connection);
+
         return $conn->getDatabaseName();
     }
 

@@ -2,9 +2,10 @@
 
 namespace Adereksisusanto\Laravel\Generator\Database;
 
+use Adereksisusanto\Laravel\Generator\Contracts\DriverContract;
 use Illuminate\Support\Facades\DB;
 
-class SqliteDriver implements \Adereksisusanto\Laravel\Generator\Contracts\DriverContract
+class SqliteDriver implements DriverContract
 {
     protected $connection;
 
@@ -27,7 +28,7 @@ class SqliteDriver implements \Adereksisusanto\Laravel\Generator\Contracts\Drive
     {
         $safeTable = str_replace('"', '""', $table);
         $results = DB::connection($this->connection)
-            ->select('PRAGMA table_info("' . $safeTable . '")');
+            ->select('PRAGMA table_info("'.$safeTable.'")');
 
         $columns = [];
 
@@ -44,7 +45,7 @@ class SqliteDriver implements \Adereksisusanto\Laravel\Generator\Contracts\Drive
                 'name' => $row->name,
                 'type' => $this->parseColumnType($type),
                 'raw_type' => $row->type,
-                'nullable' => !$row->notnull,
+                'nullable' => ! $row->notnull,
                 'default' => $row->dflt_value,
                 'auto_increment' => false,
                 'unsigned' => false,

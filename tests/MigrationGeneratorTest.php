@@ -311,7 +311,7 @@ class MigrationGeneratorTest extends TestCase
 
     protected function makeGenerator()
     {
-        return new MigrationGenerator();
+        return new MigrationGenerator;
     }
 
     protected function invokeMethod($object, $method, array $parameters = [])

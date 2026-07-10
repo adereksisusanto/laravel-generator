@@ -13,8 +13,6 @@ class {{modelName}} extends Model
 
     protected $casts = {{casts}};
 
-    protected $dates = {{dates}};
-
     protected $hidden = {{hidden}};
 {{relations}}
 }

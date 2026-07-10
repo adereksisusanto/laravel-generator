@@ -2,6 +2,7 @@
 
 namespace Adereksisusanto\Laravel\Generator\Generators;
 
+use Adereksisusanto\Laravel\Generator\Database\Schema;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -11,26 +12,25 @@ class ModelGenerator
 
     public function __construct()
     {
-        $this->template = file_get_contents(__DIR__ . '/../../resources/templates/model.stub');
+        $this->template = file_get_contents(__DIR__.'/../../resources/templates/model.stub');
     }
 
     public function generate($table, array $columns, array $foreignKeys, array $options = [])
     {
         $modelName = $this->getModelName($table);
         $namespace = isset($options['namespace']) ? $options['namespace'] : config('generator.namespace', 'App\Models');
-        $defaultPath = version_compare(app()->version(), '8', '>=') ? app_path('Models') : app_path();
+        $defaultPath = app_path('Models');
         $outputPath = isset($options['path']) ? $options['path'] : config('generator.paths.model', $defaultPath);
         $force = isset($options['force']) ? $options['force'] : false;
 
-        $filePath = rtrim($outputPath, '/\\') . '/' . $modelName . '.php';
+        $filePath = rtrim($outputPath, '/\\').'/'.$modelName.'.php';
 
-        if (File::exists($filePath) && !$force) {
+        if (File::exists($filePath) && ! $force) {
             return false;
         }
 
         $fillable = $this->getFillable($columns);
         $casts = $this->getCasts($columns);
-        $dates = $this->getDates($columns);
         $hidden = $this->getHidden($columns);
         $traits = $this->getTraits($columns, $options);
         $relations = $this->getRelations($table, $foreignKeys, $namespace);
@@ -44,7 +44,6 @@ class ModelGenerator
                 '{{table}}',
                 '{{fillable}}',
                 '{{casts}}',
-                '{{dates}}',
                 '{{hidden}}',
                 '{{traitUses}}',
                 '{{relations}}',
@@ -56,7 +55,6 @@ class ModelGenerator
                 $table,
                 $fillable,
                 $casts,
-                $dates,
                 $hidden,
                 $traitUses,
                 $relations,
@@ -67,7 +65,7 @@ class ModelGenerator
 
         $content = $this->cleanupEmptyLines($content);
 
-        if (!File::isDirectory(dirname($filePath))) {
+        if (! File::isDirectory(dirname($filePath))) {
             File::makeDirectory(dirname($filePath), 0755, true);
         }
 
@@ -85,7 +83,7 @@ class ModelGenerator
             $uses[$shortName] = $trait;
         }
 
-        if (!empty($relations)) {
+        if (! empty($relations)) {
             $lines = explode("\n", $relations);
             foreach ($lines as $line) {
                 if (preg_match('/@return\s+\\\\?([A-Za-z0-9_\\\\]+)/', $line, $m)) {
@@ -206,7 +204,7 @@ class ModelGenerator
             return 'array';
         }
 
-        if ($type === 'datetime' && !in_array($column['name'], ['created_at', 'updated_at'])) {
+        if ($type === 'datetime' && ! in_array($column['name'], ['created_at', 'updated_at'])) {
             return 'datetime';
         }
 
@@ -221,35 +219,6 @@ class ModelGenerator
         }
 
         return null;
-    }
-
-    protected function getDates(array $columns)
-    {
-        $dates = [];
-
-        foreach ($columns as $column) {
-            if (in_array($column['name'], ['created_at', 'updated_at'])) {
-                continue;
-            }
-
-            if ($column['type'] === 'datetime' || $column['type'] === 'date' || $column['type'] === 'timestamp') {
-                if ($column['name'] !== 'deleted_at') {
-                    $dates[] = $column['name'];
-                }
-            }
-        }
-
-        if (empty($dates)) {
-            return '[]';
-        }
-
-        $result = "[\n";
-        foreach ($dates as $field) {
-            $result .= "        '{$field}',\n";
-        }
-        $result .= '    ]';
-
-        return $result;
     }
 
     protected function getHidden(array $columns)
@@ -279,7 +248,9 @@ class ModelGenerator
 
     protected function getTraits(array $columns, array $options)
     {
-        $traits = [];
+        $traits = [
+            'Illuminate\\Database\\Eloquent\\Factories\\HasFactory',
+        ];
 
         $hasSoftDelete = false;
         foreach ($columns as $column) {
@@ -299,7 +270,7 @@ class ModelGenerator
 
     protected function getRelations($table, array $foreignKeys, $namespace = 'App\Models')
     {
-        if (!config('generator.model.relationships', true)) {
+        if (! config('generator.model.relationships', true)) {
             return '';
         }
 
@@ -328,7 +299,7 @@ PHP;
         $allTables = $this->getPossibleHasManyTables($tableName);
 
         foreach ($allTables as $relatedTable) {
-            $foreignKeyName = Str::singular($tableName) . '_id';
+            $foreignKeyName = Str::singular($tableName).'_id';
 
             if ($this->hasForeignKeyInRelatedTable($relatedTable, $foreignKeyName)) {
                 $relatedModel = $this->getModelName($relatedTable);
@@ -354,7 +325,7 @@ PHP;
     protected function getPossibleHasManyTables($table)
     {
         $connection = config('generator.connection');
-        $schemaManager = new \Adereksisusanto\Laravel\Generator\Database\Schema();
+        $schemaManager = new Schema;
 
         try {
             return $schemaManager->getTables($connection);
@@ -366,7 +337,7 @@ PHP;
     protected function hasForeignKeyInRelatedTable($relatedTable, $foreignKey)
     {
         $connection = config('generator.connection');
-        $schemaManager = new \Adereksisusanto\Laravel\Generator\Database\Schema();
+        $schemaManager = new Schema;
 
         try {
             $columns = $schemaManager->getColumnDetails($relatedTable, $connection);
