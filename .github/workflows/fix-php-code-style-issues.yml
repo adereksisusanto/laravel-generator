@@ -29,9 +29,13 @@ jobs:
         with:
           php-version: 8.1
           coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction
 
       - name: Fix PHP code style issues
-        run: pint
+        run: vendor/bin/pint
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v7
