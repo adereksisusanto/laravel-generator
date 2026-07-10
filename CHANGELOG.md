@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0 - 2026-07-10
+
+## What's Changed
+
+- chore: update test workflows and dependencies for Laravel 11 and 12 support
+- chore: update workflows and dependencies for PHP 8.1+ and Laravel 10–12 support
+
 ## 2.0.0 - 2026-07-10
 
 ## What's Changed
