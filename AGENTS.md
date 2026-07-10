@@ -12,7 +12,8 @@ A Laravel **library package** (not a full app) that generates Eloquent models, m
 - **Generators** (`src/Generators/`): `ModelGenerator`, `MigrationGenerator`, `SeederGenerator` — each reads a `.stub` template from `resources/templates/`
 - **Database layer** (`src/Database/`): `Schema` dispatches to driver classes (`MySqlDriver`, `PostgresDriver`, `SqliteDriver`, `SqlSrvDriver`) implementing `DriverContract`
 - **Trait**: `TableHelper` (table scanning/filtering) is used by commands
-- **Config**: `config/generator.php` controls tables (include/exclude), output paths, model/migration/seeder options
+- **Config**: `config/generator.php` controls connection (`GENERATOR_DB_CONNECTION` env), tables (include/exclude), output paths, model options (timestamps, guarded, connection, accessors), migration prefix, seeder limit
+- **DB requirement**: `ModelGenerator::getRelations()` queries the live DB at generation time to detect `hasMany` relationships — generating models needs a real DB connection
 
 ## Commands (exact)
 
@@ -22,6 +23,7 @@ composer test-coverage           # phpunit --coverage-html coverage
 composer lint                    # php-cs-fixer fix --dry-run --diff (src/ tests/ config/)
 composer lint-fix                # php-cs-fixer fix
 composer analyse                 # phpstan analyse --level=5 (src/ only)
+composer analyse:baseline        # phpstan analyse --generate-baseline
 composer check                   # lint -> analyse -> test  (run this before committing)
 ```
 
@@ -51,9 +53,9 @@ PHP 7.2.5+, Laravel 7–8, Orchestra Testbench 5–6.
 
 | Workflow | Trigger | Key detail |
 |---|---|---|
-| `run-tests.yml` | push/PR on `.php` files | Matrix: PHP 7.2–8.1, Laravel 7/8, OS ubuntu+windows, prefer-lowest/prefer-stable |
-| `phpstan.yml` | push/PR on `.php` files | PHP 7.4–8.3, single OS |
-| `fix-php-code-style-issues.yml` | push on `.php` files | Auto-commits style fixes |
+| `run-tests.yml` | push/PR on `1.x`, `.php` paths | Matrix: PHP 7.2–8.1, Laravel 7/8, OS ubuntu+windows, prefer-lowest/prefer-stable |
+| `phpstan.yml` | push/PR on `1.x`, `.php` paths | PHP 7.4–8.3, single OS |
+| `fix-php-code-style-issues.yml` | push on `1.x`, `.php` paths | Auto-commits style fixes |
 | `release.yml` | `workflow_dispatch` (manual) | Runs `composer check`, auto-updates CHANGELOG from git log, creates GitHub release |
 | `dependabot-auto-merge.yml` | `pull_request_target` | Auto-merges minor/patch dependabot PRs |
 | `opencode.yml` | comments containing `/oc` or `/opencode` | Model: opencode/deepseek-v4-flash-free |
@@ -61,6 +63,31 @@ PHP 7.2.5+, Laravel 7–8, Orchestra Testbench 5–6.
 ## Outdated doc note
 
 `CHANGELOG.md` mentions command `generate:from-database` — that name does not exist. The actual command is `generate`.
+
+## Branch strategy
+
+1 branch per **PHP minimum version bump**, not per Laravel version:
+
+| Branch | Laravel | PHP min | When to create |
+|--------|---------|---------|----------------|
+| `1.x` | 7–8 | 7.2 | — |
+| `2.x` | 9 | 8.0 | Drop PHP 7.x |
+| `3.x` | 10–12 | 8.1 | L10 needs 8.1, L11/12 still 8.1+ compatible |
+| `4.x` | 13+ | TBD | Only when PHP min rises again (e.g. 8.3+) |
+
+## Upgrading across branches
+
+When bumping Laravel support, update these files:
+
+**`composer.json`**: bump `"php"`, `"illuminate/*"`, `"orchestra/testbench"`.
+
+**`run-tests.yml`**: branch name, matrix (PHP/Laravel/testbench versions).
+
+**`phpstan.yml`** & **`fix-php-code-style-issues.yml`**: branch name.
+
+**`ServiceProvider.php`**: check `version_compare` logic (L7→8 changed model namespace/paths; L9+ stayed compatible with L8 path).
+
+**Code style**: Branch `1.x` uses `php-cs-fixer` (`.php-cs-fixer.dist.php`). Branch `2.x+` should migrate to **`laravel/pint`** — replace `friendsofphp/php-cs-fixer` in composer.json, delete `.php-cs-fixer.dist.php`, update `composer scripts` and `fix-php-code-style-issues.yml` to use `pint`.
 
 ## VSCode
 
